@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import InfoBox from "./InfoBox";
 import Table from "./Table";
 import Map from "./Map";
+import LineGraph from "./LineGraph";
+import { sortData } from "./utils";
 import {
   FormControl,
   MenuItem,
@@ -36,7 +38,8 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
-          setTableData(data);
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -97,7 +100,6 @@ function App() {
             total={countryInfo.deaths}
           />
         </div>
-        <Map />
         {/* Map */}
       </div>
 
@@ -106,7 +108,8 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           <h3>Worldwide new Cases</h3>
-          {/* Graph */}
+          <Map />
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
